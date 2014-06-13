@@ -1,0 +1,37 @@
+A sample module that counts packets from particular source MACs punted to the controller.
+
+========
+Requires
+========
+1. maven
+2. java 1.7
+3. Opendaylight Hydrogen release.
+
+========
+Compile
+========
+Opendaylight project has moved ahead of Hydrogen release. This particular HelloOpendaylight app is coded for the Hydrogen release. We must then obtain the older hydrogen release code base, compile our app against that code base. create a .jar and plug that .jar into a pre-build hydrogen release controller like the one over here [1]
+
+1. Get a copy of the current hydrogen release stable branch from Opendaylight code base
+   a. visit - https://git.opendaylight.org/gerrit/gitweb?p=controller.git;a=shortlog;h=refs%2Fheads%2Fstable%2Fhydrogen
+   b. get a 'snapshot' of the latest commit. That is essentially where the current stable hydrogen release branch is. Right click on the 'snapshot' button, download the tar.gz.
+   c. extract the underlying snapshot. 
+
+2. copy this zip file in controller-xxxxxx/opendaylight/samples/ and extract it there.
+   Our job is then to compile this module and create a .jar that can then be plugged into the controller.
+
+3. cd ./HelloOpendaylight
+3. $mvn clean install
+
+=====
+Run
+=====
+We need to copy the .jar file created in the previous step. it will be in the target folder of the samples.HelloOpendaylight folder.
+
+1. copy the .jar file inside ./target folder into opendaylight/plugins directory of wherever you unzipped [1].
+2. ./run.sh -virt vtn|opendove|ovsdb
+
+This will start the controller with our module loaded as a plugin. Observe the log messages on the commandline. 
+
+
+[1] https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distributions-virtualization/0.1.1/distributions-virtualization-0.1.1-osgipackage.zip
